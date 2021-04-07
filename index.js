@@ -1,4 +1,5 @@
 const express = require('express')
+const path = require('path')
 const app = express()
 
 app.use(express.json());
@@ -9,8 +10,8 @@ app.get('/', function (req, res) {
   res.send('Hello World')
 })
 app.get('/arduino', (req, res) => {
-  let q = req.query.q;
-  res.send('arduino dice', q)
+  let q = req.query.q || "nada bro";
+  res.json({ 'arduino dice': q })
 })
 
 
