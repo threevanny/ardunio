@@ -2,18 +2,26 @@ const express = require('express')
 const path = require('path')
 const app = express()
 
+app.set('views', __dirname + '/views');
+app.set('view engine', 'html');
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
+
 app.get('/', function (req, res) {
-  res.send('Hello World')
+  res.render('index')
 })
 app.get('/arduino', (req, res) => {
-  let q = req.query.q || "nada bro";
-  res.json({ 'arduino dice': q })
+  let l = req.query.l || "no hay luz bro";
+  let t = req.query.t || "no hay temp"
+  let h = req.query.h || "no hay humedad joven"
+  res.json({
+    'l': l,
+    't': t,
+    'h': h
+  })
 })
-
 
 app.use(function (req, res, next) {
   //next(createError(404));
